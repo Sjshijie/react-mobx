@@ -1,26 +1,35 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {observer,inject} from "mobx-react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+@inject('store')
+@observer
+class App extends React.Component {
+  render(){
+    console.log(this.props.store)
+     return (
+       <div>
+          <button onClick={()=>{this.props.store.a.add()}}>点击</button>
+          <Son></Son>
+          {this.props.store.b.name}
+       </div>
+     )
+  } 
+}
+
+@inject('store')
+@observer
+class Son extends React.Component {
+  render(){
+     return (
+       <div>
+          {this.props.store.a.count}
+          {this.props.store.a.total}
+       </div>
+     )
+  } 
 }
 
 export default App;
